@@ -94,12 +94,12 @@ def reader(f):
   lines = f.read()
   if sys.argv[3].lower() == "e" or sys.argv[3].lower() == "encrypt":
     emsg = encrypt(lines, sys.argv[2])
-#     print(color(emsg, "green"))
     print(emsg)
+#     print(color(emsg, "green"))
   elif sys.argv[3].lower() == "d" or sys.argv[3].lower() == "decrypt":
     dmsg = decrypt(lines[5:-6:], sys.argv[2])
-#     print(color(dmsg, "blue"))
     print(dmsg)
+#     print(color(dmsg, "blue"))
 
 
 
