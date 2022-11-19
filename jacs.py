@@ -2,6 +2,7 @@
 
 from random import choice; import sys, getpass
 
+# alfa = "Z.Cak" + chr(34) + "BY_4AuXb)5Wlv,V6-cUm7]Tw|" + chr(10) + "dS8(nRx':9/QeoP!yO" + chr(32) + "f@Np<zM#g+Lq{$K0;hJ%rI>1}^Hi" + chr(92) + "sG=&2Fj*Et[3D?"
 alfa = "qwertyuiopasdfghjklzxcvbnm" + chr(34) + "0123456789" + chr(92) + "~`!@#$%^&*()_+-=[]{}|':;<>?/.," + chr(10) + "QWERTYUIOPASDFGHJKLZXCVBNM" + chr(32)
 alfa_plus = alfa * 3
 
@@ -17,14 +18,14 @@ def pw_check(pw):
   for char in pw:
     if char_cnt != 0:
       if char_cnt != len(pw)-1:
-        previous_char, next_char = pw[char_cnt-1], pw[char_cnt+1]
-        if previous_char == char and next_char == char: # 111aaa
+        previous_char, next_char, char_lo = pw[char_cnt-1].lower(), pw[char_cnt+1].lower(), char.lower()
+        if previous_char == char_lo and next_char == char_lo: # 111aaa
           print(color(">> Identical characters in sequence <<", "red"))
           return pw_check(pw_error(pw))
-        elif ord(previous_char)-1 == ord(char) and ord(next_char)+1 == ord(char): #321cba
+        elif ord(previous_char)-1 == ord(char_lo) and ord(next_char)+1 == ord(char_lo): #321cba
           print(color(">> Sequential characters <<", "red"))
           return pw_check(pw_error(pw))
-        elif ord(previous_char)+1 == ord(char) and ord(next_char)-1 == ord(char): #123abc
+        elif ord(previous_char)+1 == ord(char_lo) and ord(next_char)-1 == ord(char_lo): #123abc
           print(color(">> Sequential characters <<", "red"))
           return pw_check(pw_error(pw))
     char_cnt +=1
@@ -53,10 +54,12 @@ def encrypt(msg, passwd):
     num_key, two_digs = int(passkey[i]), int(passkey[i:i+2])
     if i >= len(passkey)-1: i = 0
     if num_key % 2 == 0:
-      emsg += alfa_plus[alfa.index(char)+two_digs]# + alfa_plus[alfa.index(char)-num_key] + choice(alfa)
+      emsg += alfa_plus[alfa.index(char)+two_digs]
+#       emsg += alfa_plus[alfa.index(char)+two_digs] + alfa_plus[alfa.index(char)-num_key] + choice(alfa)
       i += 1
     else:
-      emsg += alfa_plus[alfa.index(char)-two_digs]# + alfa_plus[alfa.index(char)+num_key] + choice(alfa)
+      emsg += alfa_plus[alfa.index(char)-two_digs]
+#       emsg += alfa_plus[alfa.index(char)-two_digs] + alfa_plus[alfa.index(char)+num_key] + choice(alfa)
       i += 1
   return emsg
 
@@ -64,7 +67,8 @@ def encrypt(msg, passwd):
 
 def decrypt(emsg, passwd):
   passkey, dmsg, i = pw_check(passwd), "", 0
-  for char in emsg:#[::3]:
+  for char in emsg:
+#   for char in emsg[::3]:
     num_key, two_digs = int(passkey[i]), int(passkey[i:i+2])
     if i >= len(passkey)-1: i = 0
     if num_key % 2 != 0:
@@ -90,10 +94,12 @@ def reader(f):
   lines = f.read()
   if sys.argv[3].lower() == "e" or sys.argv[3].lower() == "encrypt":
     emsg = encrypt(lines, sys.argv[2])
-    print(color(emsg, "green"))
+#     print(color(emsg, "green"))
+    print(emsg)
   elif sys.argv[3].lower() == "d" or sys.argv[3].lower() == "decrypt":
     dmsg = decrypt(lines[5:-6:], sys.argv[2])
-    print(color(dmsg, "blue"))
+#     print(color(dmsg, "blue"))
+    print(dmsg)
 
 
 
