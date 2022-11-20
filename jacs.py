@@ -126,6 +126,7 @@ def typed():
 
   
 try: file_access(sys.argv[1])
-except: print(typed())
-finally: pass
+except: pass
+# except: print(typed())
+# finally: pass
 
