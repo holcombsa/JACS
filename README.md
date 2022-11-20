@@ -10,10 +10,9 @@ The cipher converts a password (checked for \**minimum requirements*) into a num
 
 UTILIZE:
 
-To use via the command line you can use this one of two ways:
+To use via the command line:
   - ./jacs.py [file] [password] [encrypt or decrypt(e/d)]  -- will print to the terminal (recommend [ > [new_file_name]] to output straight to a file).
     - Encrypt/Decrypt coloring is commented out to prevent error in case content is not directly output to a file. If always directly input/output from/to a file then you can uncomment that line(s) and comment out the subsequent line(s) (colorlines (e)97/98 and (d)100/101)
-  - ./jacs.py -- Will allow you to input directly into the terminal (anywhere there is a newline must be replaced with '\n')
 
 To use in a script import jacs and use encrypt() or decrypt() and it'll sort out the rest.
 
