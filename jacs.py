@@ -97,7 +97,8 @@ def reader(f):
     print(emsg)
 #     print(color(emsg, "green"))
   elif sys.argv[3].lower() == "d" or sys.argv[3].lower() == "decrypt":
-    dmsg = decrypt(lines[5:-6:], sys.argv[2])
+    dmsg = decrypt(lines[:-1:], sys.argv[2])
+#     dmsg = decrypt(lines[5:-6:], sys.argv[2])
     print(dmsg)
 #     print(color(dmsg, "blue"))
 
