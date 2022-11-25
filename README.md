@@ -12,7 +12,7 @@ UTILIZE:
 
 To use via the command line:
   - ./jacs.py [file] [password] [encrypt or decrypt(e/d)]  -- will print to the terminal (recommend [ > [new_file_name]] to output straight to a file).
-    - Encrypt/Decrypt coloring is commented out to prevent error in case content is not directly output to a file. If always directly input/output from/to a file then you can uncomment that line(s) and comment out the subsequent line(s) (colorlines (e)97/98 and (d)100/101)
+    - Encrypt/Decrypt coloring is commented out to prevent error in case content is not directly output to a file. If always directly input/output from/to a file then you can uncomment that line(s) and comment out the subsequent line(s) (colorlines (e)97/98 and (d)100/101, 102/103)
 
 To use in a script import jacs and use encrypt() or decrypt() and it'll sort out the rest.
 
