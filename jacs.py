@@ -60,7 +60,6 @@ def gen_pkey(pw_true):
   pkey = pkey_temp ** pkey_temp
   if str(000) in str(pkey):
     pkey = str(pkey).replace("000","")
-  print(pkey_temp)
   return str(pkey)
 
 
