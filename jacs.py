@@ -3,7 +3,7 @@
 import sys
 
 # alfa = "Z.Cak" + chr(34) + "BY_4AuXb)5Wlv,V6-cUm7]Tw|" + chr(10) + "dS8(nRx':9/QeoP!yO" + chr(32) + "f@Np<zM#g+Lq{$K0;hJ%rI>1}^Hi" + chr(92) + "sG=&2Fj*Et[3D?"
-alfa = "qwertyuiopasdfghjklzxcvbnm" + chr(34) + "0123456789" + chr(92) + "~`!@#$%^&*()_+-=[]{}|':;<>?/.," + chr(10) + "QWERTYUIOPASDFGHJKLZXCVBNM" + chr(32)
+alfa = "qwertyuiopasdfghjklzxcvbnm" + chr(34) + "0123456789" + chr(92) + "~`!@#$%^&*()_+-=[]{}|':;<>?/.," + chr(10) + "QWERTYUIOPASDFGHJKLZXCVBNM" + chr(32) 
 alfa_plus = alfa * 3
 
 
@@ -54,9 +54,10 @@ def gen_pkey(pw_true):
   print("... standby ...")
   pkey_ls = [ord(i) for i in pw_true]
   pkey_temp = 1
-  for n in pkey_ls[::5]: pkey_temp += n*n
-  for n in pkey_ls[::3]: pkey_temp -= n
+  for n in pkey_ls[::5]: pkey_temp += n+n
+  for n in pkey_ls[::3]: pkey_temp -= n*n-n
   for n in pkey_ls[::2]: pkey_temp += n
+  for n in pkey_ls: pkey_temp += n*n
   pkey = pkey_temp ** pkey_temp
   if str(000) in str(pkey):
     pkey = str(pkey).replace("000","")
@@ -67,17 +68,17 @@ def gen_pkey(pw_true):
 def encrypt(msg, passwd):
   passkey, emsg, i = pw_check(passwd), "", 0
   for char in msg:
-    num_key, two_digs = int(passkey[i]), int(passkey[i:i+2])
+    num_key, two_digs = int(passkey[i:i+2]), int(passkey[i:i+2])
     if char not in alfa: return char_err(char)
-    if i >= len(passkey)-1: i = 0
+    if i >= len(passkey)-2: i = 0
     if num_key % 2 == 0:
       emsg += alfa_plus[alfa.index(char)+two_digs]
 #       emsg += alfa_plus[alfa.index(char)+two_digs] + alfa_plus[alfa.index(char)-num_key] + choice(alfa)
-      i += 1
+      i += 2
     else:
       emsg += alfa_plus[alfa.index(char)-two_digs]
 #       emsg += alfa_plus[alfa.index(char)-two_digs] + alfa_plus[alfa.index(char)+num_key] + choice(alfa)
-      i += 1
+      i += 2
   return emsg
 
 
@@ -86,15 +87,15 @@ def decrypt(emsg, passwd):
   passkey, dmsg, i = pw_check(passwd), "", 0
   for char in emsg:
 #   for char in emsg[::3]:
-    num_key, two_digs = int(passkey[i]), int(passkey[i:i+2])
+    num_key, two_digs = int(passkey[i:i+2]), int(passkey[i:i+2])
     if char not in alfa: return char_err(char)
-    if i >= len(passkey)-1: i = 0
+    if i >= len(passkey)-2: i = 0
     if num_key % 2 != 0:
       dmsg += alfa_plus[alfa.index(char)+two_digs]
-      i += 1
+      i += 2
     else:
       dmsg += alfa_plus[alfa.index(char)-two_digs]
-      i += 1
+      i += 2
   dmsg = dmsg.replace("\\n", "\n")
   return dmsg
 
