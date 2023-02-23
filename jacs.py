@@ -54,11 +54,13 @@ def gen_pkey(pw_true):
   print("... standby ...")
   pkey_ls = [ord(i) for i in pw_true]
   pkey_temp = 1
-  for n in pkey_ls:
-    pkey_temp += n * n
+  for n in pkey_ls[::5]: pkey_temp += n*n
+  for n in pkey_ls[::3]: pkey_temp -= n
+  for n in pkey_ls[::2]: pkey_temp += n
   pkey = pkey_temp ** pkey_temp
   if str(000) in str(pkey):
     pkey = str(pkey).replace("000","")
+  print(pkey_temp)
   return str(pkey)
 
 
